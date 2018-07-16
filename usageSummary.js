@@ -51,8 +51,6 @@ export const getUsageSummary = (event, context, callback) => {
 };
 
 function mapData(data) {
-  return data;
-  
   const useIndex = data.columns.findIndex((c) => c.name === "use");
   const genIndex = data.columns.findIndex((c) => c.name === "gen");
 
