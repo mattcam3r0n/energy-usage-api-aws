@@ -1,7 +1,7 @@
 {
-  "name": "aws-nodejs-ecma-script",
+  "name": "energy-usage-api-aws",
   "version": "1.0.0",
-  "description": "Serverless webpack example using ecma script",
+  "description": "API for home energy usage dashboard.",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -20,6 +20,7 @@
   "main": "first.js",
   "dependencies": {
     "encoding": "^0.1.12",
+    "moment": "^2.22.2",
     "node-fetch": "^2.1.2",
     "xml-js": "^1.6.7",
     "xml2json": "^0.11.2"
