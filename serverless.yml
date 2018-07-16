@@ -23,3 +23,9 @@ functions:
       - http:
           method: get
           path: usage-detail/{period}
+  usage-summary:
+    handler: usageSummary.getUsageSummary
+    events:
+      - http:
+          method: get
+          path: usage-summary/{period}
