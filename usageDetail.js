@@ -32,12 +32,11 @@ const timePeriods = {
 export const getUsageDetail = (event, context, callback) => {
   const eg = new Egauge();
 
-  
   const { period } = event.pathParameters;
   const options = timePeriods[period]();
 
   eg.getStoredData(options)
-  .then((data) => data)
+    .then((data) => data)
     .then(mapData)
     .then(reshapeData)
     .then((data) => {
@@ -45,7 +44,8 @@ export const getUsageDetail = (event, context, callback) => {
         statusCode: 200,
         body: JSON.stringify(data),
       });
-    });
+    })
+    .catch((e) => callback(e));
 };
 
 function mapData(data) {

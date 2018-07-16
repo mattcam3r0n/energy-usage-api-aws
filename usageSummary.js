@@ -1,5 +1,5 @@
 import Egauge from './Egauge';
-import moment from "moment";
+import moment from 'moment';
 
 const timePeriods = {
   last24hours() {
@@ -7,9 +7,9 @@ const timePeriods = {
       a: null,
       T:
         moment().unix() +
-        "," +
+        ',' +
         moment()
-          .subtract(1, "days")
+          .subtract(1, 'days')
           .unix(),
     };
   },
@@ -18,9 +18,9 @@ const timePeriods = {
       a: null,
       T:
         moment().unix() +
-        "," +
+        ',' +
         moment()
-          .subtract(7, "days")
+          .subtract(7, 'days')
           .unix(),
     };
   },
@@ -29,9 +29,9 @@ const timePeriods = {
       a: null,
       T:
         moment().unix() +
-        "," +
+        ',' +
         moment()
-          .subtract(30, "days")
+          .subtract(30, 'days')
           .unix(),
     };
   },
@@ -42,17 +42,19 @@ export const getUsageSummary = (event, context, callback) => {
   const { period } = event.pathParameters;
   const options = timePeriods[period]();
   const eg = new Egauge();
-  eg.getStoredData(options).then((data) => {
-    callback(null, {
-      statusCode: 200,
-      body: JSON.stringify(mapData(data)),
-    });
-  });
+  eg.getStoredData(options)
+    .then((data) => {
+      callback(null, {
+        statusCode: 200,
+        body: JSON.stringify(mapData(data)),
+      });
+    })
+    .catch((e) => callback(e));
 };
 
 function mapData(data) {
-  const useIndex = data.columns.findIndex((c) => c.name === "use");
-  const genIndex = data.columns.findIndex((c) => c.name === "gen");
+  const useIndex = data.columns.findIndex((c) => c.name === 'use');
+  const genIndex = data.columns.findIndex((c) => c.name === 'gen');
 
   // for each column, create a series object
   return {
@@ -64,12 +66,14 @@ function mapData(data) {
       return {
         type: c.type,
         name: c.name,
-        kWh: getKWH(data, i)
+        kWh: getKWH(data, i),
       };
     }),
   };
 }
 
 function getKWH(data, index) {
-  return Math.abs(data.rows[0].cells[index] - data.rows[1].cells[index]) / 3600000;
+  return (
+    Math.abs(data.rows[0].cells[index] - data.rows[1].cells[index]) / 3600000
+  );
 }
