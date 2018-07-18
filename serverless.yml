@@ -17,15 +17,21 @@ functions:
       - http:
           method: get
           path: current
+          cors: true
+          authorizer: aws_iam
   usage-detail:
     handler: usageDetail.getUsageDetail
     events:
       - http:
           method: get
           path: usage-detail/{period}
+          cors: true
+          authorizer: aws_iam
   usage-summary:
     handler: usageSummary.getUsageSummary
     events:
       - http:
           method: get
           path: usage-summary/{period}
+          cors: true
+          authorizer: aws_iam
